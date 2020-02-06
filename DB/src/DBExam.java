@@ -15,7 +15,7 @@ public class DBExam {
 
 
 	String userName = "root";
-	String passWord = "";
+	String passWord = " ";
 	String URL1 = "jdbc:mysql://localhost:3306/";
 	String URL2 = "?serverTimezone=UTC";
 
