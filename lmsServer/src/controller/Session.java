@@ -41,7 +41,7 @@ public class Session extends Thread {
 	private boolean isGo = true;
 	private boolean quit = false;
 	String userName = "root";
-	String passWord = "0518love!";
+	String passWord = "";
 	String URL1 = "jdbc:mysql://localhost:3306/";
 	String URL2 = "?serverTimezone=UTC";
 	
@@ -82,7 +82,7 @@ public class Session extends Thread {
 		try {
 			// read data from client
 			String line = this.bufferedReader.readLine();
-			String dataName = line.substring(line.lastIndexOf(",")+1);	//³»°¡ ¸¸µç ÇÁ·ÎÅäÄİ¿¡ µû¶ó µ¥ÀÌÅÍ¸¦ ³ª´«´Ù.
+			String dataName = line.substring(line.lastIndexOf(",")+1);	//ë‚´ê°€ ë§Œë“  í”„ë¡œí† ì½œì— ë”°ë¼ ë°ì´í„°ë¥¼ ë‚˜ëˆˆë‹¤.
 			String className = line.substring(0,line.lastIndexOf(","));
 			System.out.println(className+"||"+dataName);
 			if(className.equals("dao.DAOLecture")) {
@@ -447,11 +447,11 @@ public class Session extends Thread {
 
 	private void runEDirectory(String className, String dataName) {
 		try {
-			Class cls = Class.forName(className);		//Å¬·¡½º¸¦ »ı¼ºÇÑ´Ù.
-			Method method = cls.getMethod("getItems",String.class);	//Å¬·¡½º ¾ÈÀÇ ¸Ş¼Òµå¿¡ Á¢±ÙÇÑ´Ù.
-			Vector<EDirectory> length = (Vector) method.invoke(cls.newInstance(),dataName);//¸Ş¼Òµå¸¦ ½ÇÇà½ÃÄÑ °á°ú°ªÀ» º¤ÅÍ¿¡ ³Ö´Â´Ù.
+			Class cls = Class.forName(className);		//í´ë˜ìŠ¤ë¥¼ ìƒì„±í•œë‹¤.
+			Method method = cls.getMethod("getItems",String.class);	//í´ë˜ìŠ¤ ì•ˆì˜ ë©”ì†Œë“œì— ì ‘ê·¼í•œë‹¤.
+			Vector<EDirectory> length = (Vector) method.invoke(cls.newInstance(),dataName);//ë©”ì†Œë“œë¥¼ ì‹¤í–‰ì‹œì¼œ ê²°ê³¼ê°’ì„ ë²¡í„°ì— ë„£ëŠ”ë‹¤.
 			this.objectOutputStream.writeObject(quit);
-			this.objectOutputStream.writeObject(length);//Á÷·ÄÈ­µÈ µ¥ÀÌÅÍ¸¦ º¸³½´Ù.
+			this.objectOutputStream.writeObject(length);//ì§ë ¬í™”ëœ ë°ì´í„°ë¥¼ ë³´ë‚¸ë‹¤.
 			this.objectOutputStream.flush();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -512,11 +512,11 @@ public class Session extends Thread {
 			String decoded = util.decrypt(dataName, "12345678987654321");
 			String userId = decoded.substring(0,decoded.lastIndexOf("+"));
 			String password = decoded.substring(decoded.lastIndexOf("+")+1);
-			Class cls = Class.forName(className);		//Å¬·¡½º¸¦ »ı¼ºÇÑ´Ù.
-			Method method = cls.getMethod("authenticate",String.class,String.class);	//Å¬·¡½º ¾ÈÀÇ ¸Ş¼Òµå¿¡ Á¢±ÙÇÑ´Ù.
-			boolean length = (boolean) method.invoke(cls.newInstance(),userId,password);//¸Ş¼Òµå¸¦ ½ÇÇà½ÃÄÑ °á°ú°ªÀ» º¤ÅÍ¿¡ ³Ö´Â´Ù.
+			Class cls = Class.forName(className);		//í´ë˜ìŠ¤ë¥¼ ìƒì„±í•œë‹¤.
+			Method method = cls.getMethod("authenticate",String.class,String.class);	//í´ë˜ìŠ¤ ì•ˆì˜ ë©”ì†Œë“œì— ì ‘ê·¼í•œë‹¤.
+			boolean length = (boolean) method.invoke(cls.newInstance(),userId,password);//ë©”ì†Œë“œë¥¼ ì‹¤í–‰ì‹œì¼œ ê²°ê³¼ê°’ì„ ë²¡í„°ì— ë„£ëŠ”ë‹¤.
 			this.objectOutputStream.writeObject(quit);
-			this.objectOutputStream.writeObject(length);//Á÷·ÄÈ­µÈ µ¥ÀÌÅÍ¸¦ º¸³½´Ù.
+			this.objectOutputStream.writeObject(length);//ì§ë ¬í™”ëœ ë°ì´í„°ë¥¼ ë³´ë‚¸ë‹¤.
 			this.objectOutputStream.flush();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -544,11 +544,11 @@ public class Session extends Thread {
 
 	private void runELecture(String className, String dataName) {
 		try {
-			Class cls = Class.forName(className);		//Å¬·¡½º¸¦ »ı¼ºÇÑ´Ù.
-			Method method = cls.getMethod("getItems",String.class);	//Å¬·¡½º ¾ÈÀÇ ¸Ş¼Òµå¿¡ Á¢±ÙÇÑ´Ù.
-			Vector<ELecture> length = (Vector) method.invoke(cls.newInstance(),dataName);//¸Ş¼Òµå¸¦ ½ÇÇà½ÃÄÑ °á°ú°ªÀ» º¤ÅÍ¿¡ ³Ö´Â´Ù.
+			Class cls = Class.forName(className);		//í´ë˜ìŠ¤ë¥¼ ìƒì„±í•œë‹¤.
+			Method method = cls.getMethod("getItems",String.class);	//í´ë˜ìŠ¤ ì•ˆì˜ ë©”ì†Œë“œì— ì ‘ê·¼í•œë‹¤.
+			Vector<ELecture> length = (Vector) method.invoke(cls.newInstance(),dataName);//ë©”ì†Œë“œë¥¼ ì‹¤í–‰ì‹œì¼œ ê²°ê³¼ê°’ì„ ë²¡í„°ì— ë„£ëŠ”ë‹¤.
 			this.objectOutputStream.writeObject(quit);
-			this.objectOutputStream.writeObject(length);//Á÷·ÄÈ­µÈ µ¥ÀÌÅÍ¸¦ º¸³½´Ù.
+			this.objectOutputStream.writeObject(length);//ì§ë ¬í™”ëœ ë°ì´í„°ë¥¼ ë³´ë‚¸ë‹¤.
 			this.objectOutputStream.flush();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
